@@ -4,4 +4,10 @@
         org.lwjgl/lwjgl-opengl {:mvn/version "3.3.2"}
         org.lwjgl/lwjgl-opengl$natives-macos {:mvn/version "3.3.2"}
         org.lwjgl/lwjgl-glfw {:mvn/version "3.3.2"}
-        org.lwjgl/lwjgl-glfw$natives-macos {:mvn/version "3.3.2"}}}
+        org.lwjgl/lwjgl-glfw$natives-macos {:mvn/version "3.3.2"}}
+
+ :aliases{
+          :macos {:jvm-opts ["-XstartOnFirstThread"]}
+
+ }
+ }
