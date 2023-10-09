@@ -5,4 +5,4 @@
 
 #https://ask.clojure.org/index.php/10674/could-tools-alpha-support-opts-aliases-data-paths-extra-paths
 
-clj -Mmacos raw-opengl-lwjgl3.clj 
+clj -M:macos-arm64 hello-lwjgl3.clj 

@@ -1,13 +1,11 @@
-{:deps {org.clojure/clojure {:mvn/version "1.11.1"}
-        org.lwjgl/lwjgl {:mvn/version "3.3.2"}
-        org.lwjgl/lwjgl$natives-macos {:mvn/version "3.3.2"}
-        org.lwjgl/lwjgl-opengl {:mvn/version "3.3.2"}
-        org.lwjgl/lwjgl-opengl$natives-macos {:mvn/version "3.3.2"}
-        org.lwjgl/lwjgl-glfw {:mvn/version "3.3.2"}
-        org.lwjgl/lwjgl-glfw$natives-macos {:mvn/version "3.3.2"}}
+{:deps {org.clojure/clojure {:mvn/version "1.11.1"}}
 
- :aliases{
-          :macos {:jvm-opts ["-XstartOnFirstThread"]}
+ :aliases {:macos-arm64 {:extra-deps {;;  https://www.lwjgl.org/customize
+                                      org.lwjgl/lwjgl {:mvn/version "3.3.3"}
+                                      org.lwjgl/lwjgl$natives-macos-arm64 {:mvn/version "3.3.3"}
+                                      org.lwjgl/lwjgl-opengl {:mvn/version "3.3.3"}
+                                      org.lwjgl/lwjgl-opengl$natives-macos-arm64 {:mvn/version "3.3.3"}
+                                      org.lwjgl/lwjgl-glfw {:mvn/version "3.3.3"}
+                                      org.lwjgl/lwjgl-glfw$natives-macos-arm64 {:mvn/version "3.3.3"}}
 
- }
- }
+                         :jvm-opts ["-XstartOnFirstThread"]}}}
