@@ -11,12 +11,21 @@
 (GLFW/glfwDefaultWindowHints)
 (def window (GLFW/glfwCreateWindow width height title 0 0))
 
+(defn opaque? [window]
+  (= 1.0 (GLFW/glfwGetWindowOpacity window)))
+
+(defn toggle-opacity [window]
+  (let [ opacity (if (opaque? window) 0.5 1.0)]
+    (GLFW/glfwSetWindowOpacity window opacity)))
+
 (GLFW/glfwSetKeyCallback window (reify GLFWKeyCallbackI
                                   (invoke [this window key scancode action mods]
-                                    (when (and (= key GLFW/GLFW_KEY_ESCAPE)
-                                               (= action GLFW/GLFW_RELEASE))
+                                    (when (= action GLFW/GLFW_RELEASE)
                                         ; We will detect this in the rendering loop
-                                      (GLFW/glfwSetWindowShouldClose window true)))))
+                                      (cond
+                                        (= key GLFW/GLFW_KEY_ESCAPE) (GLFW/glfwSetWindowShouldClose window true)
+                                        (= key GLFW/GLFW_KEY_O) (toggle-opacity window)
+                                        )))))
 
 (GLFW/glfwMakeContextCurrent window)
 (GLFW/glfwSwapInterval 1)
