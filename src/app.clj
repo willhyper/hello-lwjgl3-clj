@@ -1,5 +1,5 @@
 (ns app
-  (:import (org.lwjgl.glfw GLFW)
+  (:import (org.lwjgl.glfw GLFW GLFWKeyCallbackI)
            (org.lwjgl.opengl GL GL21)
            (org.lwjgl Version)))
 
@@ -10,6 +10,14 @@
 (GLFW/glfwInit)
 (GLFW/glfwDefaultWindowHints)
 (def window (GLFW/glfwCreateWindow width height title 0 0))
+
+(GLFW/glfwSetKeyCallback window (reify GLFWKeyCallbackI
+                                  (invoke [this window key scancode action mods]
+                                    (when (and (= key GLFW/GLFW_KEY_ESCAPE)
+                                               (= action GLFW/GLFW_RELEASE))
+                                        ; We will detect this in the rendering loop
+                                      (GLFW/glfwSetWindowShouldClose window true)))))
+
 (GLFW/glfwMakeContextCurrent window)
 (GLFW/glfwSwapInterval 1)
 (GLFW/glfwShowWindow window)
@@ -30,3 +38,59 @@
 
 (GLFW/glfwDestroyWindow window)
 (GLFW/glfwTerminate)
+
+
+;; import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
+
+;;         glfwSetKeyCallback(window, (windowHnd, key, scancode, action, mods) -> {
+;;                     if (action != GLFW_RELEASE) {
+;;                         return;
+;;                     }
+        
+;;                     switch (key) {
+;;                         case GLFW_KEY_ESCAPE:
+;;                             glfwSetWindowShouldClose(windowHnd, true);
+;;                             break;
+;;                         case GLFW_KEY_A:
+;;                             glfwRequestWindowAttention(windowHnd);
+;;                             break;
+;;                         case GLFW_KEY_F:
+;;                             if (glfwGetWindowMonitor(windowHnd) == NULL) {
+;;                                 try (MemoryStack s = stackPush()) {
+;;                                     IntBuffer a = s.ints(0);
+;;                                     IntBuffer b = s.ints(0);
+        
+;;                                     glfwGetWindowPos(windowHnd, a, b);
+;;                                     xpos = a.get(0);
+;;                                     ypos = b.get(0);
+        
+;;                                     glfwGetWindowSize(windowHnd, a, b);
+;;                                     width = a.get(0);
+;;                                     height = b.get(0);
+;;                                 }
+;;                                 glfwSetWindowMonitor(windowHnd, monitor, 0, 0, vidmode.width(), vidmode.height(), vidmode.refreshRate());
+;;                                 glfwSwapInterval(1);
+;;                             }
+;;                             break;
+;;                         case GLFW_KEY_G:
+;;                             glfwSetInputMode(windowHnd, GLFW_CURSOR, glfwGetInputMode(windowHnd, GLFW_CURSOR) == GLFW_CURSOR_NORMAL
+;;                                 ? GLFW_CURSOR_DISABLED
+;;                                 : GLFW_CURSOR_NORMAL
+;;                             );
+;;                             break;
+;;                         case GLFW_KEY_O:
+;;                             glfwSetWindowOpacity(window, glfwGetWindowOpacity(window) == 1.0f ? 0.5f : 1.0f);
+;;                             break;
+;;                         case GLFW_KEY_R:
+;;                             glfwSetWindowAttrib(windowHnd, GLFW_RESIZABLE, 1 - glfwGetWindowAttrib(windowHnd, GLFW_RESIZABLE));
+;;                             break;
+;;                         case GLFW_KEY_U:
+;;                             glfwSetWindowAttrib(windowHnd, GLFW_DECORATED, 1 - glfwGetWindowAttrib(windowHnd, GLFW_DECORATED));
+;;                             break;
+;;                         case GLFW_KEY_W:
+;;                             if (glfwGetWindowMonitor(windowHnd) != NULL) {
+;;                                 glfwSetWindowMonitor(windowHnd, NULL, xpos, ypos, width, height, 0);
+;;                             }
+;;                             break;
+;;                     }
+;;                 });
