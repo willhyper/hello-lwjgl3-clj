@@ -1,4 +1,6 @@
-{:deps {org.clojure/clojure {:mvn/version "1.11.1"}}
+{:paths ["src" "classes"]
+
+ :deps {org.clojure/clojure {:mvn/version "1.11.1"}}
 
  :aliases {:macos-arm64 {:extra-deps {;;  https://www.lwjgl.org/customize
                                       org.lwjgl/lwjgl {:mvn/version "3.3.3"}

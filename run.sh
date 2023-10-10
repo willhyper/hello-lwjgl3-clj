@@ -3,4 +3,4 @@
 
 #https://ask.clojure.org/index.php/10674/could-tools-alpha-support-opts-aliases-data-paths-extra-paths
 
-clj -M:macos-arm64 app.clj 
+clj -M:macos-arm64 src/app.clj 
